@@ -23,7 +23,6 @@ public class Conexion {
     public static Conexion instance;
     private Connection cnn;
     
-
     private Conexion() {
         try{
             Class.forName("com.mysql.jdbc.Driver");
