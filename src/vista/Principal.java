@@ -30,7 +30,8 @@ public class Principal extends javax.swing.JFrame {
         pnlEstado = new javax.swing.JPanel();
         dskEscritorio = new javax.swing.JDesktopPane();
         mnbPrincipal = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mnuAlumno = new javax.swing.JMenu();
+        mniFichaAlumno = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,8 +58,17 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 455, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
-        mnbPrincipal.add(jMenu1);
+        mnuAlumno.setText("Alumno");
+
+        mniFichaAlumno.setText("Ficha Alumno");
+        mniFichaAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniFichaAlumnoActionPerformed(evt);
+            }
+        });
+        mnuAlumno.add(mniFichaAlumno);
+
+        mnbPrincipal.add(mnuAlumno);
 
         jMenu2.setText("Edit");
         mnbPrincipal.add(jMenu2);
@@ -82,6 +92,12 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mniFichaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFichaAlumnoActionPerformed
+FichaAlumno visAlumno= new FichaAlumno();
+           dskEscritorio.add(visAlumno);
+            visAlumno.show();       
+    }//GEN-LAST:event_mniFichaAlumnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,9 +136,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane dskEscritorio;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public javax.swing.JMenuBar mnbPrincipal;
+    public javax.swing.JMenuItem mniFichaAlumno;
+    private javax.swing.JMenu mnuAlumno;
     public javax.swing.JPanel pnlEstado;
     // End of variables declaration//GEN-END:variables
 }

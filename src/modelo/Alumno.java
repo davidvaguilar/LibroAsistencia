@@ -9,10 +9,42 @@ package modelo;
  *
  * @author David
  */
-public class Alumno {
-    private String perRut;
+public class Alumno extends Persona {
     private String carCodigo;
     private String estAluCodigo;
+
+    public Alumno(String perRut,String carCodigo, String estAluCodigo ) {
+        super(perRut);
+        this.carCodigo = carCodigo;
+        this.estAluCodigo = estAluCodigo;
+    }
+
+    
+
+    public Alumno(String carCodigo, String estAluCodigo, String perRut, 
+            String perNombre, String perApellidoPaterno, String perApellidoMaterno) {
+        super(perRut, perNombre, perApellidoPaterno, perApellidoMaterno);
+        this.carCodigo = carCodigo;
+        this.estAluCodigo = estAluCodigo;
+    }
+    
+
+    public String getCarCodigo() {
+        return carCodigo;
+    }
+
+    public void setCarCodigo(String carCodigo) {
+        this.carCodigo = carCodigo;
+    }
+
+    public String getEstAluCodigo() {
+        return estAluCodigo;
+    }
+
+    public void setEstAluCodigo(String estAluCodigo) {
+        this.estAluCodigo = estAluCodigo;
+    }
+    
     
     
 }

@@ -17,6 +17,29 @@ public class Carrera {
         this.carCodigo = carCodigo;
         this.carNombre = carNombre;
     }
+
+    public String getCarCodigo() {
+        return carCodigo;
+    }
+
+    public void setCarCodigo(String carCodigo) {
+        this.carCodigo = carCodigo;
+    }
+
+    public String getCarNombre() {
+        return carNombre;
+    }
+
+    public void setCarNombre(String carNombre) {
+        this.carNombre = carNombre;
+    }
+
+    @Override
+    public String toString() {
+       return ("La Carrera contiene: \n"+
+               "Codigo :"+this.carCodigo+"\n"+
+               "Nombre :"+this.carNombre);
+    }
     
     
 }

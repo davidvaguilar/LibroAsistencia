@@ -38,11 +38,9 @@ public class ControlLogin implements ActionListener{
         visLogin.txtAlias.setBackground(Color.WHITE);
         visLogin.txtPassword.setBackground(Color.WHITE);
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
         
         if(e.getSource()==this.visLogin.btnIngresar){
             ArrayList<Usuario> usuarios=new ArrayList();
@@ -85,12 +83,6 @@ public class ControlLogin implements ActionListener{
                 }
                 visLogin.lblInformacion.setText("Ingrese valor (es)");
             }
-            
-            
         }
-        
     }
-    
-    
-    
 }

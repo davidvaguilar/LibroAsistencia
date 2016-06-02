@@ -9,69 +9,71 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modeloDAO.AlumnoDAO;
+import modeloDAO.CarreraDAO;
 import vista.FichaAlumno;
 /**
  *
  * @author David
  */
 public class ControlAlumno implements ActionListener{
-    private FichaAlumno modCalculadora;
-//    private Alumno visCalculadora;
+    private FichaAlumno visAlumno;
+    private AlumnoDAO modAlumno;
+    private CarreraDAO modCarrera;
     
-    public ControlAlumno(){
-//        this.modCalculadora=mCalculadora;
-//        this.visCalculadora=vCalculadora;
-//        this.visCalculadora.btnResultado.addActionListener(this);
-//        this.visCalculadora.btnLimpiar.addActionListener(this);
-//        this.visCalculadora.btnActualizar.addActionListener(this);
+    public ControlAlumno(FichaAlumno vFichaAlumno, AlumnoDAO mAlumno, CarreraDAO mCarrera){
+        this.modAlumno=mAlumno;
+        this.modCarrera=mCarrera;
+        this.visAlumno=vFichaAlumno;
+        this.visAlumno.btnRegistrar.addActionListener(this);
+        this.visAlumno.btnActualizar.addActionListener(this);
+        this.visAlumno.btnSeleccionar.addActionListener(this);
+        this.visAlumno.btnEliminar.addActionListener(this);
+        this.visCarComboBox(this.visAlumno.cbbCarrera);
     }
     
-    public void ActualizarTabla(JTable t){
-//        DefaultTableModel modeloTabla= new DefaultTableModel();
-//        int cantidadRegitro;
-//        t.setModel(modeloTabla);
-//        modeloTabla.addColumn("Cod.");
-//        modeloTabla.addColumn("1° Numero");
-//        modeloTabla.addColumn("Signo");
-//        modeloTabla.addColumn("2° Numero");
-//        modeloTabla.addColumn("Resultado");
-//        
-//        Object[] columna=new Object[5];
-//        cantidadRegitro=modCalculadora.listar().size();
-//        if(cantidadRegitro>10){
-//            for (int i = (cantidadRegitro-1); i > cantidadRegitro-10; i--) {
-//                columna[0]= modCalculadora.listar().get(i).getCalCodigo();
-//                columna[1]= modCalculadora.listar().get(i).getCalPriOperando();
-//                columna[2]= modCalculadora.listar().get(i).getCalOperador();
-//                columna[3]= modCalculadora.listar().get(i).getCalSegOperando();
-//                columna[4]= modCalculadora.listar().get(i).calcular();
-//                modeloTabla.addRow(columna);
-//            }
-//        }else{
-//            for (int i = 0; i < cantidadRegitro; i++) {
-//                columna[0]= modCalculadora.listar().get(i).getCalCodigo();
-//                columna[1]= modCalculadora.listar().get(i).getCalPriOperando();
-//                columna[2]= modCalculadora.listar().get(i).getCalOperador();
-//                columna[3]= modCalculadora.listar().get(i).getCalSegOperando();
-//                columna[4]= modCalculadora.listar().get(i).calcular();
-//                modeloTabla.addRow(columna);
-//            }
-//        }
+    public void visAluTabla(JTable tblVisualizar){
+        DefaultTableModel modTabla= new DefaultTableModel();
+        int cantidadRegistro;
+        tblVisualizar.setModel(modTabla);
+        modTabla.addColumn("Rut");
+        modTabla.addColumn("Nombre");
+        modTabla.addColumn("Apellido");
+        modTabla.addColumn("Estado");
+        modTabla.addColumn("Carrera");
+        Object[] columna=new Object[5];
+        cantidadRegistro=this.modAlumno.listar().size();
+        if(cantidadRegistro>10){
+            for (int i = (cantidadRegistro-1); i > cantidadRegistro-10; i--) {
+                columna[0]= this.modAlumno.listar().get(i).getPerRut();
+                columna[1]= this.modAlumno.listar().get(i).getPerNombre();
+                columna[2]= this.modAlumno.listar().get(i).getPerApellidoPaterno();
+                columna[3]= this.modAlumno.listar().get(i).getEstAluCodigo();
+                columna[4]= this.modAlumno.listar().get(i).getCarCodigo();
+                modTabla.addRow(columna);
+            }
+        }        
+    }
+    
+    public void visCarComboBox(JComboBox cbbCarrera){
         
     }
     
-//    public void limpiar(){
-//        visCalculadora.txtPrimer.setText("");
-//        visCalculadora.txtSegundo.setText("");
-//        visCalculadora.txtSigno.setText("");
-//        visCalculadora.txtPrimer.setBackground(Color.WHITE);
-//        visCalculadora.txtSegundo.setBackground(Color.WHITE);
-//        visCalculadora.txtSigno.setBackground(Color.WHITE);
-//    }
-//    
+    public void limpiar(){
+        this.visAlumno.txtRut.setText("");
+        this.visAlumno.txtNombre.setText("");
+        this.visAlumno.txtApePaterno.setText("");
+        this.visAlumno.txtApeMaterno.setText("");
+        this.visAlumno.txtRut.setBackground(Color.WHITE);
+        this.visAlumno.txtNombre.setBackground(Color.WHITE);
+        this.visAlumno.txtApePaterno.setBackground(Color.WHITE);
+        this.visAlumno.txtApeMaterno.setBackground(Color.WHITE);
+    }
+    
     
     @Override
     public void actionPerformed(ActionEvent e) {

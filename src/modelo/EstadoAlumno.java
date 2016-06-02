@@ -17,6 +17,22 @@ public class EstadoAlumno {
         this.estAluCodigo = estAluCodigo;
         this.estAluDescripcion = estAluDescripcion;
     }
+
+    public String getEstAluCodigo() {
+        return estAluCodigo;
+    }
+
+    public void setEstAluCodigo(String estAluCodigo) {
+        this.estAluCodigo = estAluCodigo;
+    }
+
+    public String getEstAluDescripcion() {
+        return estAluDescripcion;
+    }
+
+    public void setEstAluDescripcion(String estAluDescripcion) {
+        this.estAluDescripcion = estAluDescripcion;
+    }
     
     
 }

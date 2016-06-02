@@ -22,6 +22,10 @@ public class Persona {
         this.perApellidoMaterno = perApellidoMaterno;
     }
 
+    public Persona(String perRut) {
+        this.perRut = perRut;
+    }
+    
     public String getPerRut() {
         return perRut;
     }
