@@ -28,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlEstado = new javax.swing.JPanel();
+        lblInformacion = new javax.swing.JLabel();
         dskEscritorio = new javax.swing.JDesktopPane();
         mnbPrincipal = new javax.swing.JMenuBar();
         mnuAlumno = new javax.swing.JMenu();
@@ -40,11 +41,13 @@ public class Principal extends javax.swing.JFrame {
         pnlEstado.setLayout(pnlEstadoLayout);
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 744, Short.MAX_VALUE)
+            .addGroup(pnlEstadoLayout.createSequentialGroup()
+                .addComponent(lblInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 481, Short.MAX_VALUE))
         );
         pnlEstadoLayout.setVerticalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addComponent(lblInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout dskEscritorioLayout = new javax.swing.GroupLayout(dskEscritorio);
@@ -94,9 +97,9 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniFichaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFichaAlumnoActionPerformed
-FichaAlumno visAlumno= new FichaAlumno();
-           dskEscritorio.add(visAlumno);
-            visAlumno.show();       
+//          FichaAlumno visAlumno= new FichaAlumno();
+//           dskEscritorio.add(visAlumno);
+//            visAlumno.show();       
     }//GEN-LAST:event_mniFichaAlumnoActionPerformed
 
     /**
@@ -137,6 +140,7 @@ FichaAlumno visAlumno= new FichaAlumno();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane dskEscritorio;
     private javax.swing.JMenu jMenu2;
+    public javax.swing.JLabel lblInformacion;
     public javax.swing.JMenuBar mnbPrincipal;
     public javax.swing.JMenuItem mniFichaAlumno;
     private javax.swing.JMenu mnuAlumno;

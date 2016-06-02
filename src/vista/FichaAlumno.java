@@ -42,6 +42,7 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
         btnSeleccionar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         pnlEstado = new javax.swing.JPanel();
+        lblInformacion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
@@ -118,11 +119,13 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
         pnlEstado.setLayout(pnlEstadoLayout);
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlEstadoLayout.createSequentialGroup()
+                .addComponent(lblInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlEstadoLayout.setVerticalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addComponent(lblInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
         );
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -270,6 +273,7 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JLabel lblInformacion;
     private javax.swing.JPanel pnlEstado;
     public javax.swing.JTable tblVisualizar;
     public javax.swing.JTextField txtApeMaterno;

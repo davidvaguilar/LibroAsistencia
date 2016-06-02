@@ -106,7 +106,7 @@ public class PersonaDAO implements InterfazDAO<Persona>{
         Persona p=null;
         try {
             ps=cnn.getCnn().prepareStatement(SQL_BUSCAR);
-            ps.setInt(1, (Integer)llave);
+            ps.setString(1, (String)llave);
             rs=ps.executeQuery();
             while(rs.next()){
                 p=new Persona(rs.getString("perRut"),rs.getString("perNombre"),rs.getString("perApellidoPaterno"),rs.getString("perApellidoMaterno"));

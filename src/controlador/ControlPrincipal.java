@@ -7,7 +7,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import modelo.EstadoAlumno;
 import modelo.Usuario;
+import modeloDAO.AlumnoDAO;
+import modeloDAO.CarreraDAO;
+import modeloDAO.EstadoAlumnoDAO;
 import vista.FichaAlumno;
 import vista.Principal;
 
@@ -32,9 +36,10 @@ public class ControlPrincipal implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.visPrincipal.mniFichaAlumno){
-            FichaAlumno visAlumno= new FichaAlumno();
-            visPrincipal.dskEscritorio.add(visAlumno);
-            visAlumno.show();
+            FichaAlumno vAlumno= new FichaAlumno();
+            ControlAlumno cAlumno=new ControlAlumno(vAlumno,this.visPrincipal);
+            visPrincipal.dskEscritorio.add(vAlumno);
+            vAlumno.show();
         }
     }
     

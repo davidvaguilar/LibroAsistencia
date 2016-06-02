@@ -6,33 +6,41 @@
 package controlador;
 
 import java.awt.Color;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelo.Alumno;
+import modelo.Persona;
 import modeloDAO.AlumnoDAO;
 import modeloDAO.CarreraDAO;
 import modeloDAO.EstadoAlumnoDAO;
+import modeloDAO.PersonaDAO;
 import vista.FichaAlumno;
+import vista.Principal;
 /**
  *
  * @author David
  */
 public class ControlAlumno implements ActionListener{
     private FichaAlumno visAlumno;
+    private Principal visPrincipal;
     private AlumnoDAO modAlumno;
+    private PersonaDAO modPersona;
     private CarreraDAO modCarrera;
     private EstadoAlumnoDAO modEstadoAlumno;
     
-    public ControlAlumno(FichaAlumno vFichaAlumno, AlumnoDAO mAlumno, 
-            CarreraDAO mCarrera, EstadoAlumnoDAO mEstado){
-        this.modAlumno = mAlumno;
-        this.modCarrera = mCarrera;
-        this.modEstadoAlumno = mEstado;
+    public ControlAlumno(FichaAlumno vFichaAlumno, Principal vPrincipal){
+        this.modAlumno = new AlumnoDAO();
+        this.modCarrera = new CarreraDAO();
+        this.modEstadoAlumno = new EstadoAlumnoDAO();
+        this.modPersona=new PersonaDAO();
         this.visAlumno = vFichaAlumno;
+        this.visPrincipal= vPrincipal;
         this.tablaAlumno(this.visAlumno.tblVisualizar);
         this.comboCarrera(this.visAlumno.cbbCarrera);
         this.comboEstadoAlumno(this.visAlumno.cbbEstado);
@@ -40,13 +48,13 @@ public class ControlAlumno implements ActionListener{
         this.visAlumno.btnActualizar.addActionListener(this);
         this.visAlumno.btnSeleccionar.addActionListener(this);
         this.visAlumno.btnEliminar.addActionListener(this);
- 
-        
+       
     }
     
     public void tablaAlumno(JTable tblVisualizar){
         DefaultTableModel modTabla= new DefaultTableModel();
         int cantidadRegistro;
+        Persona p;
         tblVisualizar.setModel(modTabla);
         modTabla.addColumn("Rut");
         modTabla.addColumn("Nombre");
@@ -55,19 +63,20 @@ public class ControlAlumno implements ActionListener{
         modTabla.addColumn("Carrera");
         Object[] columna=new Object[5];
         cantidadRegistro=this.modAlumno.listar().size();
-        if(cantidadRegistro>10){
-            for (int i = (cantidadRegistro-1); i > cantidadRegistro-10; i--) {
+        
+            for (int i = (cantidadRegistro-1); i >= 0; i--) {
                 columna[0]= this.modAlumno.listar().get(i).getPerRut();
-                columna[1]= this.modAlumno.listar().get(i).getPerNombre();
-                columna[2]= this.modAlumno.listar().get(i).getPerApellidoPaterno();
+                p = modPersona.buscar(columna[0]);
+                columna[1]= p.getPerNombre();
+                columna[2]= p.getPerApellidoPaterno();
                 columna[3]= this.modAlumno.listar().get(i).getEstAluCodigo();
                 columna[4]= this.modAlumno.listar().get(i).getCarCodigo();
                 modTabla.addRow(columna);
             }
-        }        
     }
     
     public void comboCarrera(JComboBox cbbCarrera){
+        cbbCarrera.removeAllItems();
         int cantidadRegistro = this.modCarrera.listar().size();
         cbbCarrera.addItem("Seleccione :");
         for (int i = 0; i < cantidadRegistro; i++) {
@@ -76,12 +85,13 @@ public class ControlAlumno implements ActionListener{
     }
     
     public void comboEstadoAlumno(JComboBox cbbEstado){
+        cbbEstado.removeAllItems();
         cbbEstado.addItem("Seleccione :");
         int cantidadRegistro = this.modEstadoAlumno.listar().size();
-        
         for (int i = 0; i < cantidadRegistro; i++) {
-            cbbEstado.addItem(modCarrera.listar().get(i).getCarNombre());
+            cbbEstado.addItem(modEstadoAlumno.listar().get(i).getEstAluDescripcion());
         }
+
     }
     
     public void limpiar(){
@@ -98,70 +108,57 @@ public class ControlAlumno implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-//        if(e.getSource()==this.visCalculadora.btnResultado){
-//            Integer primerNumero;
-//            String signo;
-//            Integer segundoNumero;
-//            boolean bandera;
-//            Calculadora c;
-//            
-//            signo=visCalculadora.txtSigno.getText();
-//            if(!signo.equals("+")&&!signo.equals("-")&&!signo.equals("*")&&!signo.equals("/")){
-//                JOptionPane.showMessageDialog(visCalculadora, "Los operadores son:\n"
-//                        + "+ => suma \n"
-//                        + "- => resta \n"
-//                        + "* => multiplicacion \n"
-//                        + "/ => division \n");
-//                signo="";
-//            }
-//                
-//            if(!visCalculadora.txtPrimer.getText().isEmpty()&&
-//                    !visCalculadora.txtSegundo.getText().isEmpty()&&
-//                    !signo.isEmpty()){
-//               
-//                
-//                try{
-//                    primerNumero=Integer.valueOf(visCalculadora.txtPrimer.getText());
-//                    segundoNumero=Integer.valueOf(visCalculadora.txtSegundo.getText());
-//                    c= new Calculadora(primerNumero, segundoNumero, signo);
-//                    bandera=modCalculadora.ingresar(c);
-//                    if(bandera){
-//                        visCalculadora.lblInformacion.setText("El resultado es: "+ c.calcular());
-//                    }else{
-//                        visCalculadora.lblInformacion.setText("Hubo un error al ingresar, No se pudo terminar el ingreso");
-//                    }
-//                    limpiar();
-//                    
-//                }catch(Exception ex){
-//                    this.visCalculadora.lblInformacion.setText( "Debe ingresar numeros");
-//                    ex.printStackTrace();
-//                }finally{
-//                    ActualizarTabla(visCalculadora.tblDatos);
-//                }
-//            }else{
-//            
-//                if(this.visCalculadora.txtPrimer.getText().isEmpty()){
-//                    this.visCalculadora.txtPrimer.setBackground(Color.red);
-//                }else{
-//                    this.visCalculadora.txtPrimer.setBackground(Color.white);
-//                }
-//                if(this.visCalculadora.txtSegundo.getText().isEmpty()){
-//                    this.visCalculadora.txtSegundo.setBackground(Color.red);
-//                }else{
-//                    this.visCalculadora.txtSegundo.setBackground(Color.white);
-//                }
-//                if(this.visCalculadora.txtSigno.getText().isEmpty()){
-//                    this.visCalculadora.txtSigno.setBackground(Color.red);
-//                }else{
-//                    this.visCalculadora.txtSigno.setBackground(Color.white);
-//                }
-//                this.visCalculadora.lblInformacion.setText("Ingrese valor (es)");
-//            }
-//        }
-//        
-//        if(e.getSource()==this.visCalculadora.btnActualizar){
-//            ActualizarTabla(this.visCalculadora.tblDatos);
-//        }
+        if(e.getSource()==this.visAlumno.btnRegistrar){
+            String rut, nombre, apePaterno, apeMaterno,carrera, estado;
+            boolean bandera;
+            Alumno a;
+            Persona p;
+            rut=this.visAlumno.txtRut.getText();
+            nombre = this.visAlumno.txtNombre.getText();
+            apePaterno=this.visAlumno.txtApePaterno.getText();
+            apeMaterno=this.visAlumno.txtApeMaterno.getText();
+            carrera=(String)this.visAlumno.cbbCarrera.getSelectedItem();
+            estado=(String)this.visAlumno.cbbEstado.getSelectedItem();
+            if(!rut.equals("")&&!nombre.equals("")&&!apePaterno.equals("")){
+                try{
+                    p=new Persona(rut, nombre, apePaterno, apeMaterno);
+                    bandera=modPersona.ingresar(p);
+                    if(bandera){                        
+                        a=new Alumno(carrera, estado, rut, nombre, apePaterno, apeMaterno);
+                        bandera=modAlumno.ingresar(a);
+                        if(bandera){
+                            this.visPrincipal.lblInformacion.setText("El Alumno ha sido registrado satisfactoriamente");
+                            limpiar();
+                        }else{
+                            JOptionPane.showMessageDialog(visAlumno, "Hubo un error al Ingresar al Alumno, No se pudo terminar el ingreso");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(visAlumno, "No se pudo agregar al Alumno");                    
+                    }                    
+                }catch(Exception ex){
+                    this.visPrincipal.lblInformacion.setText( "Hubo un Error del Sistema cod."+ex.toString());
+                }finally{
+                    tablaAlumno(this.visAlumno.tblVisualizar);
+                }
+            }else{
+            
+                if(this.visAlumno.txtRut.getText().isEmpty()){
+                    this.visAlumno.txtRut.setBackground(Color.red);
+                }else{
+                    this.visAlumno.txtRut.setBackground(Color.white);
+                }
+                if(this.visAlumno.txtNombre.getText().isEmpty()){
+                    this.visAlumno.txtNombre.setBackground(Color.red);
+                }else{
+                    this.visAlumno.txtNombre.setBackground(Color.white);
+                }
+                if(this.visAlumno.txtApePaterno.getText().isEmpty()){
+                    this.visAlumno.txtApePaterno.setBackground(Color.red);
+                }else{
+                    this.visAlumno.txtApePaterno.setBackground(Color.white);
+                }
+                this.visPrincipal.lblInformacion.setText("Ingrese valor (es)");
+            }
+        }
     }
-    
 }
