@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modeloDAO.AlumnoDAO;
 import modeloDAO.CarreraDAO;
+import modeloDAO.EstadoAlumnoDAO;
 import vista.FichaAlumno;
 /**
  *
@@ -24,19 +25,26 @@ public class ControlAlumno implements ActionListener{
     private FichaAlumno visAlumno;
     private AlumnoDAO modAlumno;
     private CarreraDAO modCarrera;
+    private EstadoAlumnoDAO modEstadoAlumno;
     
-    public ControlAlumno(FichaAlumno vFichaAlumno, AlumnoDAO mAlumno, CarreraDAO mCarrera){
-        this.modAlumno=mAlumno;
-        this.modCarrera=mCarrera;
-        this.visAlumno=vFichaAlumno;
+    public ControlAlumno(FichaAlumno vFichaAlumno, AlumnoDAO mAlumno, 
+            CarreraDAO mCarrera, EstadoAlumnoDAO mEstado){
+        this.modAlumno = mAlumno;
+        this.modCarrera = mCarrera;
+        this.modEstadoAlumno = mEstado;
+        this.visAlumno = vFichaAlumno;
+        this.tablaAlumno(this.visAlumno.tblVisualizar);
+        this.comboCarrera(this.visAlumno.cbbCarrera);
+        this.comboEstadoAlumno(this.visAlumno.cbbEstado);
         this.visAlumno.btnRegistrar.addActionListener(this);
         this.visAlumno.btnActualizar.addActionListener(this);
         this.visAlumno.btnSeleccionar.addActionListener(this);
         this.visAlumno.btnEliminar.addActionListener(this);
-        this.visCarComboBox(this.visAlumno.cbbCarrera);
+ 
+        
     }
     
-    public void visAluTabla(JTable tblVisualizar){
+    public void tablaAlumno(JTable tblVisualizar){
         DefaultTableModel modTabla= new DefaultTableModel();
         int cantidadRegistro;
         tblVisualizar.setModel(modTabla);
@@ -59,8 +67,21 @@ public class ControlAlumno implements ActionListener{
         }        
     }
     
-    public void visCarComboBox(JComboBox cbbCarrera){
+    public void comboCarrera(JComboBox cbbCarrera){
+        int cantidadRegistro = this.modCarrera.listar().size();
+        cbbCarrera.addItem("Seleccione :");
+        for (int i = 0; i < cantidadRegistro; i++) {
+            cbbCarrera.addItem(modCarrera.listar().get(i).getCarNombre());
+        }
+    }
+    
+    public void comboEstadoAlumno(JComboBox cbbEstado){
+        cbbEstado.addItem("Seleccione :");
+        int cantidadRegistro = this.modEstadoAlumno.listar().size();
         
+        for (int i = 0; i < cantidadRegistro; i++) {
+            cbbEstado.addItem(modCarrera.listar().get(i).getCarNombre());
+        }
     }
     
     public void limpiar(){

@@ -19,11 +19,11 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
      */
     public FichaAlumno() {
         initComponents();
-        int cantidadRegistro = this.modCarrera.listar().size();
-        cbbCarrera.addItem("Seleccione :");
-        for (int i = 0; i < cantidadRegistro; i++) {
-            cbbCarrera.addItem(modCarrera.listar().get(i).getCarNombre());
-        }
+//        int cantidadRegistro = this.modCarrera.listar().size();
+//        cbbCarrera.addItem("Seleccione :");
+//        for (int i = 0; i < cantidadRegistro; i++) {
+//            cbbCarrera.addItem(modCarrera.listar().get(i).getCarNombre());
+//        }
     }
 
     /**
