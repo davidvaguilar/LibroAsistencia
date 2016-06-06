@@ -16,6 +16,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.txtAlias.setText("15979446");
+        this.txtPassword.setText("1234");
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface InterfazDAO <Algo> {
     public boolean ingresar (Algo x);
     public boolean actualizar (Algo x);
-    public boolean eliminar (Object llave);
-    public Algo buscar(Object llave);
+    public boolean eliminar (Algo x);
+    public Algo buscar(Algo x);
     public ArrayList<Algo> listar();
 }

@@ -27,7 +27,7 @@ public class CarreraDAO implements InterfazDAO<Carrera>{
     private static final String SQL_ELIMINAR=
             "DELETE FROM Carrera WHERE carCodigo = ?";
     private static final String SQL_BUSCAR= 
-            "SELECT * FROM Carrera WHERE carCodigo = ?";
+            "SELECT * FROM Carrera WHERE carCodigo = ? OR carNombre = ?";
     private static final String SQL_LISTAR=
             "SELECT * FROM Carrera";    
 
@@ -74,12 +74,12 @@ public class CarreraDAO implements InterfazDAO<Carrera>{
     }
 
     @Override
-    public boolean eliminar(Object llave) {
+    public boolean eliminar(Carrera x) {
         PreparedStatement ps;
         int bandera;
         try{
             ps = cnn.getCnn().prepareStatement(SQL_ELIMINAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getCarCodigo());
             bandera = ps.executeUpdate();
             if(bandera > 0){
                 return true;
@@ -93,23 +93,25 @@ public class CarreraDAO implements InterfazDAO<Carrera>{
     }
 
     @Override
-    public Carrera buscar(Object llave) {
+    public Carrera buscar(Carrera x) {
         PreparedStatement ps;
         ResultSet rs;
         Carrera c = null;
-            try {
-            ps=cnn.getCnn().prepareStatement(SQL_BUSCAR);
-            ps.setInt(1, (Integer)llave);
-            rs=ps.executeQuery();
+        try {
+            ps = cnn.getCnn().prepareStatement(SQL_BUSCAR);
+            ps.setString(1, x.getCarCodigo());
+            ps.setString(2, x.getCarNombre());
+            rs = ps.executeQuery();
             while(rs.next()){
                 c = new Carrera(rs.getString("carCodigo"),rs.getString("carNombre"));
             }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }finally{
-                cnn.cerrarConexion();
-            }
-        return c;        }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            cnn.cerrarConexion();
+        }
+        return c;        
+    }
 
     @Override
     public ArrayList<Carrera> listar() {

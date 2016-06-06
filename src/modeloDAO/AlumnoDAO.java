@@ -27,7 +27,8 @@ public class AlumnoDAO implements InterfazDAO<Alumno>{
     private static final String SQL_ELIMINAR=
             "DELETE FROM Alumno WHERE perRut = ?";
     private static final String SQL_BUSCAR= 
-            "SELECT * FROM Alumno WHERE perRut = ?";
+            "SELECT * FROM Alumno WHERE perRut = ? OR carCodigo = ? "
+            + "OR estAluCodigo = ?";
     private static final String SQL_LISTAR=
             "SELECT * FROM Alumno";
   
@@ -76,12 +77,12 @@ public class AlumnoDAO implements InterfazDAO<Alumno>{
     }
 
     @Override
-    public boolean eliminar(Object llave) {
+    public boolean eliminar(Alumno x) {
         PreparedStatement ps;
         int bandera;
         try{
             ps=cnn.getCnn().prepareStatement(SQL_ELIMINAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getPerRut());
             bandera=ps.executeUpdate();
             if(bandera>0){
                 return true;
@@ -95,13 +96,15 @@ public class AlumnoDAO implements InterfazDAO<Alumno>{
     }
 
     @Override
-    public Alumno buscar(Object llave) {
+    public Alumno buscar(Alumno x) {
         PreparedStatement ps;
         ResultSet rs;
         Alumno a = null;
         try {
             ps=cnn.getCnn().prepareStatement(SQL_BUSCAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getPerRut());
+            ps.setString(2, x.getCarCodigo());
+            ps.setString(3, x.getEstAluCodigo());
             rs=ps.executeQuery();
             while(rs.next()){
                 a=new Alumno(rs.getString("perRut"),rs.getString("carCodigo"),rs.getString("estAluCodigo"));

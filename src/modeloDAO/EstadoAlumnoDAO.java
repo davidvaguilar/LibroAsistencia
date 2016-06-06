@@ -27,8 +27,8 @@ public class EstadoAlumnoDAO implements InterfazDAO<EstadoAlumno>{
             + "SET estAluDescripcion = ? WHERE estAluCodigo = ?";
     private static final String SQL_ELIMINAR=
             "DELETE FROM EstadoAlumno WHERE estAluCodigo = ?";
-    private static final String SQL_BUSCAR= 
-            "SELECT * FROM EstadoAlumno WHERE estAluCodigo = ?";
+    private  static String SQL_BUSCAR=
+            "SELECT * FROM EstadoAlumno WHERE estAluCodigo = ? OR estAluDescripcion = ? "; 
     private static final String SQL_LISTAR=
             "SELECT * FROM EstadoAlumno";
     
@@ -75,12 +75,12 @@ public class EstadoAlumnoDAO implements InterfazDAO<EstadoAlumno>{
     }
 
     @Override
-    public boolean eliminar(Object llave) {
+    public boolean eliminar(EstadoAlumno x) {
         PreparedStatement ps;
         int bandera;
         try{
             ps=cnn.getCnn().prepareStatement(SQL_ELIMINAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getEstAluCodigo());
             bandera = ps.executeUpdate();
             if(bandera>0){
                 return true;
@@ -94,13 +94,14 @@ public class EstadoAlumnoDAO implements InterfazDAO<EstadoAlumno>{
     }
 
     @Override
-    public EstadoAlumno buscar(Object llave) {
+    public EstadoAlumno buscar(EstadoAlumno x) {
         PreparedStatement ps;
         ResultSet rs;
-        EstadoAlumno ea = null;
+        EstadoAlumno ea=null;
         try {
             ps=cnn.getCnn().prepareStatement(SQL_BUSCAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getEstAluCodigo());
+            ps.setString(2, x.getEstAluDescripcion());
             rs=ps.executeQuery();
             while(rs.next()){
                 ea=new EstadoAlumno(rs.getString("estAluCodigo"),rs.getString("estAluDescripcion"));

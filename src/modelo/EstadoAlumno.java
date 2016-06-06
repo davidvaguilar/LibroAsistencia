@@ -13,6 +13,9 @@ public class EstadoAlumno {
     private String estAluCodigo;
     private String estAluDescripcion;
 
+    public EstadoAlumno() {
+    }
+
     public EstadoAlumno(String estAluCodigo, String estAluDescripcion) {
         this.estAluCodigo = estAluCodigo;
         this.estAluDescripcion = estAluDescripcion;
@@ -32,6 +35,11 @@ public class EstadoAlumno {
 
     public void setEstAluDescripcion(String estAluDescripcion) {
         this.estAluDescripcion = estAluDescripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "EstadoAlumno{" + "estAluCodigo=" + estAluCodigo + ", estAluDescripcion=" + estAluDescripcion + '}';
     }
     
     

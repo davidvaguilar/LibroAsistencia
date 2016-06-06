@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author David
@@ -19,7 +21,14 @@ public class Alumno extends Persona {
         this.estAluCodigo = estAluCodigo;
     }
 
-    
+    public Alumno() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Alumno{" + "carCodigo=" + carCodigo + ", estAluCodigo=" + estAluCodigo + '}';
+    }
 
     public Alumno(String carCodigo, String estAluCodigo, String perRut, 
             String perNombre, String perApellidoPaterno, String perApellidoMaterno) {
@@ -43,6 +52,32 @@ public class Alumno extends Persona {
 
     public void setEstAluCodigo(String estAluCodigo) {
         this.estAluCodigo = estAluCodigo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.getPerRut());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Alumno other = (Alumno) obj;
+        if (!Objects.equals(this.getPerRut(), other.getPerRut())) {
+            
+            return false;
+        }
+        return true;
     }
     
     

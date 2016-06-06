@@ -30,7 +30,8 @@ public class PersonaDAO implements InterfazDAO<Persona>{
     private static final String SQL_ELIMINAR=
             "DELETE FROM Persona WHERE perRut = ?";
     private static final String SQL_BUSCAR= 
-            "SELECT * FROM Persona WHERE perRut = ?";
+            "SELECT * FROM Persona WHERE perRut = ? OR perNombre = ? "
+            + "OR perApellidoPaterno = ? OR perApellidoMaterno = ?";
     private static final String SQL_LISTAR=
             "SELECT * FROM Persona";
     
@@ -81,12 +82,12 @@ public class PersonaDAO implements InterfazDAO<Persona>{
     }
 
     @Override
-    public boolean eliminar(Object llave) {
+    public boolean eliminar(Persona x) {
         PreparedStatement ps;
         int bandera;
         try{
             ps=cnn.getCnn().prepareStatement(SQL_ELIMINAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getPerRut());
             bandera=ps.executeUpdate();
             if(bandera>0){
                 return true;
@@ -100,13 +101,16 @@ public class PersonaDAO implements InterfazDAO<Persona>{
     }
 
     @Override
-    public Persona buscar(Object llave) {
+    public Persona buscar(Persona x) {
         PreparedStatement ps;
         ResultSet rs;
         Persona p=null;
         try {
             ps=cnn.getCnn().prepareStatement(SQL_BUSCAR);
-            ps.setString(1, (String)llave);
+            ps.setString(1, x.getPerRut());
+            ps.setString(2, x.getPerNombre());
+            ps.setString(3, x.getPerApellidoPaterno());
+            ps.setString(4, x.getPerApellidoMaterno());
             rs=ps.executeQuery();
             while(rs.next()){
                 p=new Persona(rs.getString("perRut"),rs.getString("perNombre"),rs.getString("perApellidoPaterno"),rs.getString("perApellidoMaterno"));

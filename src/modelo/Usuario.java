@@ -16,6 +16,9 @@ public class Usuario {
     private String usuPassword;
     private String usuTipo;
 
+    public Usuario() {
+    }
+
     public Usuario(String alias, String pass, String tipo) {
         this.usuAlias = alias;
         this.usuPassword = pass;

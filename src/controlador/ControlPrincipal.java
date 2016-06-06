@@ -7,11 +7,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import modelo.EstadoAlumno;
+import modelo.Reloj;
 import modelo.Usuario;
-import modeloDAO.AlumnoDAO;
-import modeloDAO.CarreraDAO;
-import modeloDAO.EstadoAlumnoDAO;
 import vista.FichaAlumno;
 import vista.Principal;
 
@@ -28,9 +25,8 @@ public class ControlPrincipal implements ActionListener{
         this.u = u;
         this.visPrincipal.mniFichaAlumno.addActionListener(this);
         this.visPrincipal.setVisible(true);
-//        FichaAlumno visAlumno= new FichaAlumno();
-//        this.visPrincipal.dskEscritorio.add(visAlumno);
-//        visAlumno.setVisible(true);
+        Reloj hilo=new Reloj(this.visPrincipal.lblHora);
+        hilo.start();
     }
 
     @Override

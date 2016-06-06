@@ -18,6 +18,9 @@ public class Asistencia {
     private String actCodigo;
     private String bloCodigo;
 
+    public Asistencia() {
+    }
+
     public Asistencia(String asisFecha, String asisAnotacion, String asisPeriodo, String perRut, String asiCodigo, String actCodigo, String bloCodigo) {
         this.asisFecha = asisFecha;
         this.asisAnotacion = asisAnotacion;

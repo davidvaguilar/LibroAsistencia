@@ -29,6 +29,7 @@ public class Principal extends javax.swing.JFrame {
 
         pnlEstado = new javax.swing.JPanel();
         lblInformacion = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         dskEscritorio = new javax.swing.JDesktopPane();
         mnbPrincipal = new javax.swing.JMenuBar();
         mnuAlumno = new javax.swing.JMenu();
@@ -37,17 +38,21 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblHora.setText("Fecha - Hora");
+
         javax.swing.GroupLayout pnlEstadoLayout = new javax.swing.GroupLayout(pnlEstado);
         pnlEstado.setLayout(pnlEstadoLayout);
         pnlEstadoLayout.setHorizontalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstadoLayout.createSequentialGroup()
-                .addComponent(lblInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 481, Short.MAX_VALUE))
+                .addComponent(lblInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlEstadoLayout.setVerticalGroup(
             pnlEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout dskEscritorioLayout = new javax.swing.GroupLayout(dskEscritorio);
@@ -140,6 +145,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane dskEscritorio;
     private javax.swing.JMenu jMenu2;
+    public javax.swing.JLabel lblHora;
     public javax.swing.JLabel lblInformacion;
     public javax.swing.JMenuBar mnbPrincipal;
     public javax.swing.JMenuItem mniFichaAlumno;

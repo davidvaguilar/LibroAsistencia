@@ -76,12 +76,12 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
     }
 
     @Override
-    public boolean eliminar(Object llave) {
+    public boolean eliminar(Usuario x) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
-    public Usuario buscar(Object llave) {
+    public Usuario buscar(Usuario x) {
         File f;
         FileReader fr=null;
         BufferedReader br=null;
@@ -98,7 +98,7 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
                 linea = br.readLine();
                 while(linea!=null){
                     segmento = linea.split(";");
-                    if(segmento[0].equals((String)llave)){
+                    if(segmento[0].equals(x.getUsuAlias())){
                         u=new Usuario(segmento[0], segmento[1],segmento[2]);
                     }
                     linea = br.readLine();
