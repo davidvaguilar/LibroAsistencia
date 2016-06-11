@@ -81,7 +81,7 @@ public class ControlAlumno implements ActionListener{
         cbbCarrera.removeAllItems();
         ArrayList<Carrera> carreras = modCarrera.listar();
         int cantidadRegistro = carreras.size();
-        cbbCarrera.addItem("Seleccione :");
+        cbbCarrera.addItem("Seleccione : ");
         for (int i = 0; i < cantidadRegistro; i++) {
             cbbCarrera.addItem(carreras.get(i).getCarNombre());
         }
@@ -90,7 +90,7 @@ public class ControlAlumno implements ActionListener{
     public void comboEstadoAlumno(JComboBox cbbEstado){
         cbbEstado.removeAllItems();
         ArrayList<EstadoAlumno> estados= modEstadoAlumno.listar();
-        cbbEstado.addItem("Seleccione :");
+        cbbEstado.addItem("Seleccione : ");
         int cantidadRegistro = estados.size();
         for (int i = 0; i < cantidadRegistro; i++) {
             cbbEstado.addItem(estados.get(i).getEstAluDescripcion());
