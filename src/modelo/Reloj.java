@@ -26,13 +26,13 @@ public class Reloj extends Thread{
     @Override
     public void run() {
         while(true){
-            Date hoy=new Date();
-            SimpleDateFormat s=new SimpleDateFormat("hh:mm:ss");
+            Date hoy = new Date();
+            SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss");
             lbl.setText(s.format(hoy));
             try{
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Reloj.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error en el Reloj "+ex.toString());
             }
         }
     }

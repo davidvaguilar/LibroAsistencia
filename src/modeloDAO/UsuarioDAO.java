@@ -24,7 +24,7 @@ import modelo.Usuario;
  */
 public class UsuarioDAO implements InterfazDAO<Usuario>{
 
-    private static final String URL= "./src/fichero/usuario.csv";
+    private static final String URL= "usuario.csv";
     
     
     @Override

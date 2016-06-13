@@ -36,7 +36,7 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVisualizar = new javax.swing.JTable();
-        btnSeleccionar = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
@@ -66,6 +66,9 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
+        setClosable(true);
+        setIconifiable(true);
+
         tblVisualizar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -88,11 +91,11 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(btnSeleccionar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(btnSeleccionar)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -239,7 +242,7 @@ public class FichaAlumno extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnRegistrar;
-    public javax.swing.JButton btnSeleccionar;
+    public javax.swing.JToggleButton btnSeleccionar;
     private modeloDAO.CarreraDAO carreraDAO1;
     public javax.swing.JComboBox<String> cbbCarrera;
     public javax.swing.JComboBox<String> cbbEstado;

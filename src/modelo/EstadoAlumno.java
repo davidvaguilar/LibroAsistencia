@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author David
@@ -40,6 +42,31 @@ public class EstadoAlumno {
     @Override
     public String toString() {
         return "EstadoAlumno{" + "estAluCodigo=" + estAluCodigo + ", estAluDescripcion=" + estAluDescripcion + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.estAluCodigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EstadoAlumno other = (EstadoAlumno) obj;
+        if (!Objects.equals(this.estAluCodigo, other.estAluCodigo)) {
+            return false;
+        }
+        return true;
     }
     
     

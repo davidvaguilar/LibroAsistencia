@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class Conexion {
     
-    public static final String URL= "jdbc:mysql://192.168.0.2:3306/LibroAsistencia?zeroDateTimeBehavior=convertToNull";
+    public static final String URL= "jdbc:mysql://190.161.130.92:3306/LibroAsistencia?zeroDateTimeBehavior=convertToNull";
     public static final String USERNAME= "15979446";
     public static final String PASSWORD= "david";
     public static Conexion instance;

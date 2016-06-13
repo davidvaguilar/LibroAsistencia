@@ -51,6 +51,9 @@ public class ControlAlumno implements ActionListener{
         this.visAlumno.btnActualizar.addActionListener(this);
         this.visAlumno.btnSeleccionar.addActionListener(this);
         this.visAlumno.btnEliminar.addActionListener(this);
+        
+        this.visAlumno.btnActualizar.setEnabled(false);
+        this.visAlumno.btnEliminar.setEnabled(false);
     }
     
     public void tablaAlumno(JTable tblVisualizar){
@@ -90,7 +93,6 @@ public class ControlAlumno implements ActionListener{
     public void comboEstadoAlumno(JComboBox cbbEstado){
         cbbEstado.removeAllItems();
         ArrayList<EstadoAlumno> estados= modEstadoAlumno.listar();
-        cbbEstado.addItem("Seleccione : ");
         int cantidadRegistro = estados.size();
         for (int i = 0; i < cantidadRegistro; i++) {
             cbbEstado.addItem(estados.get(i).getEstAluDescripcion());
@@ -106,101 +108,185 @@ public class ControlAlumno implements ActionListener{
         this.visAlumno.txtNombre.setBackground(Color.WHITE);
         this.visAlumno.txtApePaterno.setBackground(Color.WHITE);
         this.visAlumno.txtApeMaterno.setBackground(Color.WHITE);
+        this.visAlumno.cbbCarrera.setSelectedIndex(0);
+        this.visAlumno.cbbEstado.setSelectedIndex(0);
     }
     
+    public void botonDeseleccionar(){
+        this.visAlumno.btnSeleccionar.setText("Seleccionar");
+        this.visAlumno.btnSeleccionar.setSelected(false);
+        this.visAlumno.txtRut.setEditable(true);
+        this.visAlumno.btnRegistrar.setEnabled(true);
+        this.visAlumno.btnActualizar.setEnabled(false);
+        this.visAlumno.btnEliminar.setEnabled(false);
+        this.limpiar();
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+//        if(e.getSource()==this.visAlumno.btnActualizar){
+//            System.out.println("Hola Mundo");
+//            Alumno a=new Alumno();
+//            Carrera c = new Carrera();
+//            EstadoAlumno ea = new EstadoAlumno(); 
+//            boolean resultado = false;
+//            boolean bandera = false;
+//            a.setPerRut(this.visAlumno.txtRut.getText());
+//            int cantidadRegistro = this.modAlumno.listar().size();
+//            for (int i = 0; i < cantidadRegistro; i++) {
+//                if(a.equals(modAlumno.listar().get(i))){
+//                    //bandera = true;
+//                    a.setPerNombre(this.visAlumno.txtNombre.getText());
+//                    a.setPerApellidoPaterno(this.visAlumno.txtApePaterno.getText());
+//                    a.setPerApellidoMaterno(this.visAlumno.txtApeMaterno.getText());
+//                    c.setCarNombre((String)this.visAlumno.cbbCarrera.getSelectedItem());
+//                    ea.setEstAluDescripcion((String)this.visAlumno.cbbEstado.getSelectedItem());
+//                    if(!a.getPerNombre().equals("")&&
+//                            !a.getPerApellidoPaterno().equals("")&&
+//                            !c.getCarNombre().equals("")&&
+//                            !ea.getEstAluDescripcion().equals("")){
+//                        try{
+//                            a.setCarCodigo(modCarrera.buscar(c).getCarCodigo());
+//                            a.setEstAluCodigo(modEstadoAlumno.buscar(ea).getEstAluCodigo());
+//                            resultado = modPersona.actualizar(a);
+//                            if(resultado){   
+//                                
+//                                
+//                                
+//                                
+//                                HASTA AQUI QUEDE
+//                                
+//                                resultado=modAlumno.actualizar(a);
+//                                if(resultado){
+//                                    this.visPrincipal.lblInformacion.setText("El Alumno ha sido registrado satisfactoriamente");
+//                                    limpiar();
+//                                }else{
+//                                    JOptionPane.showMessageDialog(visAlumno, "Hubo un error al Ingresar al Alumno, No se pudo terminar el ingreso");
+//                                    this.visPrincipal.lblInformacion.setText("No se pudo agregar al Alumno");
+//                                    resultado=modPersona.eliminar(a);
+//                                    if(resultado){
+//                                        System.out.println("Se ha Eliminado a la Persona");
+//                                    }else{
+//                                        System.out.println("No se pudo eliminar a la Persona");
+//                                    }
+//                                    System.out.println(a.toString());   //Imprimir Objeto
+//                                }
+//                            }else{
+//                                JOptionPane.showMessageDialog(visAlumno, "No se pudo agregar al Alumno");  
+//                                this.visPrincipal.lblInformacion.setText("No se pudo agregar a la persona");
+//                            }                    
+//                        }catch(Exception ex){
+//                            this.visPrincipal.lblInformacion.setText( "Hubo un Error cod."+ex.toString());
+//                            System.out.println("Hubo un Error al Registrar cod."+ex.toString());
+//                        }finally{
+//                            tablaAlumno(this.visAlumno.tblVisualizar);
+//                        }
+//                        
+//                        
+//                        
+//                    }
+//                }
+//            }
+//            
+//            
+//        }
+        
+        
         if(e.getSource()==this.visAlumno.btnEliminar){
             Alumno a=new Alumno();
-            boolean resultado = false;
             boolean bandera = false;
-            a.setPerRut(this.visAlumno.txtRut.getText());
-            int cantidadRegistro = this.modAlumno.listar().size();
-            for (int i = 0; i < cantidadRegistro; i++) {
-                if(a.equals(modAlumno.listar().get(i))){
-                    bandera = true;
-                }
-            }
-            if(!a.getPerRut().equals("")&&
-                    bandera){
-                try{
-                    resultado=modAlumno.eliminar(a);
-                    if(resultado){
-                        resultado=modPersona.eliminar(a);
-                        if(resultado){
-                            JOptionPane.showMessageDialog(visAlumno, "Se ha eliminado Correctamente");
-                        }else{
-                            JOptionPane.showMessageDialog(visAlumno, "No se ha podido eliminar al Alumno");
-                            System.out.println("No se pudo eliminar al Alumno");
-                        }
-                    }else{
-                        System.out.println("No se pudo eliminar a la Persona");
-                    }
-                }catch(Exception ex){
-                    this.visPrincipal.lblInformacion.setText( "Hubo un Error cod."+ex.toString());
-                    System.out.println("Hubo un Error al Eliminar cod."+ex.toString());
-                }
-                
+            if(this.visAlumno.txtRut.getText().isEmpty()){
+                this.visAlumno.txtRut.setBackground(Color.red);
+                this.visPrincipal.lblInformacion.setText("Ingrese el Rut del Alumno");
             }else{
-                if(this.visAlumno.txtRut.getText().isEmpty()){
-                    this.visAlumno.txtRut.setBackground(Color.red);
-                }else{
-                    this.visAlumno.txtRut.setBackground(Color.white);
+                this.visAlumno.txtRut.setBackground(Color.white);
+                a.setPerRut(this.visAlumno.txtRut.getText());
+                int cantidadRegistro = this.modAlumno.listar().size();
+                for (int i = 0; i < cantidadRegistro; i++) {
+                    if(a.equals(modAlumno.listar().get(i))){
+                        try{
+                            bandera=modAlumno.eliminar(a);
+                            if(bandera){
+                                bandera=modPersona.eliminar(a);
+                                if(bandera){
+                                    JOptionPane.showMessageDialog(visAlumno, "Se ha eliminado Correctamente");
+                                }
+                            }
+                        }catch(Exception ex){
+                            this.visPrincipal.lblInformacion.setText( "Hubo un Error cod."+ex.toString());
+                            System.out.println("Hubo un Error al Eliminar cod."+ex.toString());
+                        }finally{
+                            this.botonDeseleccionar();
+                            tablaAlumno(this.visAlumno.tblVisualizar);
+                        }
+                    }
                 }
                 if(!bandera){
-                    JOptionPane.showMessageDialog(this.visAlumno, "El alumno No existe, no es posible eliminarlo");
-                    this.visPrincipal.lblInformacion.setText("Alumno No ha sido ingresado anteriormente");
+                    JOptionPane.showMessageDialog(this.visAlumno, "Alumno No pudo ser eliminado");
+                    this.visPrincipal.lblInformacion.setText("Alumno No pudo ser eliminado");
                 }
-                this.visPrincipal.lblInformacion.setText("Ingrese valor (es)");
-
             }
         }
-        
+       
+                
         
         if(e.getSource()==this.visAlumno.btnSeleccionar){
-            Alumno a, temp=new Alumno();
-            int seleccionFila;
-            try{
-                seleccionFila= this.visAlumno.tblVisualizar.getSelectedRow();
-                if (seleccionFila==-1){
-                    this.visPrincipal.lblInformacion.setText("Seleccione una Fila");
-                    JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-                }else{
-                    DefaultTableModel modTabla=(DefaultTableModel) this.visAlumno.tblVisualizar.getModel();
-                    temp.setPerRut((String)modTabla.getValueAt(seleccionFila, 0));
-                    a=modAlumno.buscar(temp);
-                    this.visAlumno.txtRut.setText(a.getPerRut());
-                    this.visAlumno.txtNombre.setText(modPersona.buscar(a).getPerNombre());
-                    this.visAlumno.txtApePaterno.setText(modPersona.buscar(a).getPerApellidoPaterno());
-                    this.visAlumno.txtApeMaterno.setText(modPersona.buscar(a).getPerApellidoMaterno());
-                    switch(a.getCarCodigo()){
-                        case "442":
-                            this.visAlumno.cbbCarrera.setSelectedIndex(1);
-                            break;
+            if(this.visAlumno.btnSeleccionar.isSelected()){
+                Alumno a = new Alumno();
+                int seleccionFila;
+                try{
+                    seleccionFila = this.visAlumno.tblVisualizar.getSelectedRow();
+                    if (seleccionFila == -1){
+                        this.visPrincipal.lblInformacion.setText("Seleccione una Fila");
+                        JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+                        this.visAlumno.btnSeleccionar.setText("Seleccionar");
+                        this.visAlumno.btnSeleccionar.setSelected(false);
+                    }else{
+                        DefaultTableModel modTabla=(DefaultTableModel) this.visAlumno.tblVisualizar.getModel();
+                        //temp.setPerRut((String)modTabla.getValueAt(seleccionFila, 0));
+                        a.setPerRut((String)modTabla.getValueAt(seleccionFila, 0));
+                        a = modAlumno.buscar(a);
+                        this.visAlumno.txtRut.setText(a.getPerRut());
+                        this.visAlumno.txtNombre.setText(modPersona.buscar(a).getPerNombre());
+                        this.visAlumno.txtApePaterno.setText(modPersona.buscar(a).getPerApellidoPaterno());
+                        this.visAlumno.txtApeMaterno.setText(modPersona.buscar(a).getPerApellidoMaterno());
+                        ArrayList<EstadoAlumno> estados= modEstadoAlumno.listar();
+                        int cantidadEstados = estados.size();
+                        for (int i = 0; i < cantidadEstados; i++) {
+                            if(estados.get(i).equals(new EstadoAlumno(a.getEstAluCodigo(), null))){
+                                this.visAlumno.cbbEstado.setSelectedIndex(i);
+                            }
+                        }
+                        ArrayList<Carrera> carrera= modCarrera.listar();
+                        int cantidadCarrera = carrera.size();
+                        for (int i = 0; i < cantidadCarrera; i++) {
+                            if(carrera.get(i).equals(new Carrera(a.getCarCodigo(), null))){
+                                this.visAlumno.cbbCarrera.setSelectedIndex(i+1);
+                            }
+                        }   
+                        this.visAlumno.btnSeleccionar.setText("Deseleccionar");
+                        this.visAlumno.btnSeleccionar.setSelected(true);
+                        this.visAlumno.txtRut.setEditable(false);
+                        this.visAlumno.btnRegistrar.setEnabled(false);
+                        this.visAlumno.btnActualizar.setEnabled(true);
+                        this.visAlumno.btnEliminar.setEnabled(true);
                     }
-                    switch(a.getEstAluCodigo()){
-                        case "ACT":
-                            this.visAlumno.cbbEstado.setSelectedIndex(1);
-                            break;
-                        case "RET":
-                            this.visAlumno.cbbEstado.setSelectedIndex(2);
-                            break;
-                    }
+                }catch(Exception ex){
+                    System.out.println("ERROR AL SACAR DATOS DE LA TABLA"+ ex.toString());
+                    this.visPrincipal.lblInformacion.setText("No se pudo Seleccionar toda la informacion");
                 }
-            }catch(Exception ex){
-                System.out.println("ERROR AL SACAR DATOS DE LA TABLA");
-                this.visPrincipal.lblInformacion.setText("No se pudo Seleccionar toda la informacion");
+            }else{
+                this.botonDeseleccionar();
             }
         }
         
         if(e.getSource()==this.visAlumno.btnRegistrar){
-            //String rut, nombre, apePaterno, apeMaterno,carrera, estado,carNombre, estNombre;
             boolean bandera=false;
             boolean resultado=false;
-            Alumno a=new Alumno();
-            Carrera c=new Carrera();
-            EstadoAlumno ea=new EstadoAlumno();  
+            Alumno a = new Alumno();
+            Carrera c = new Carrera();
+            EstadoAlumno ea = new EstadoAlumno();  
             
             a.setPerRut(this.visAlumno.txtRut.getText());
             int cantidadRegistro = this.modAlumno.listar().size();
@@ -217,15 +303,13 @@ public class ControlAlumno implements ActionListener{
             if(!a.getPerRut().equals("")&&
                     !a.getPerNombre().equals("")&&
                     !a.getPerApellidoPaterno().equals("")&&
-                    !a.getPerApellidoMaterno().equals("")&&
+                  //  !a.getPerApellidoMaterno().equals("")&&
                     !c.getCarNombre().equals("")&&
                     !ea.getEstAluDescripcion().equals("")&&
                     !bandera){
                 try{
                     a.setCarCodigo(modCarrera.buscar(c).getCarCodigo());
-                    System.out.println(a.toString());
                     a.setEstAluCodigo(modEstadoAlumno.buscar(ea).getEstAluCodigo());
-                    System.out.println(a.toString());
                     resultado = modPersona.ingresar(a);
                     if(resultado){   
                         resultado=modAlumno.ingresar(a);
@@ -241,6 +325,7 @@ public class ControlAlumno implements ActionListener{
                             }else{
                                 System.out.println("No se pudo eliminar a la Persona");
                             }
+                            System.out.println(a.toString());   //Imprimir Objeto
                         }
                     }else{
                         JOptionPane.showMessageDialog(visAlumno, "No se pudo agregar al Alumno");  
@@ -268,7 +353,6 @@ public class ControlAlumno implements ActionListener{
                 }else{
                     this.visAlumno.txtApePaterno.setBackground(Color.white);
                 }
-               
                 this.visPrincipal.lblInformacion.setText("Ingrese valor (es)");
                 if(bandera){
                     JOptionPane.showMessageDialog(this.visAlumno, "El alumno ya existe en la Base de Datos");
